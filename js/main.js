@@ -1,9 +1,10 @@
-
-onload = () => {
-  const c = setTimeout(() => {
+window.onload = () => {
+  // Menghilangkan class "not-loaded" setelah 1 detik
+  setTimeout(() => {
     document.body.classList.remove("not-loaded");
 
-    const titles = ('I Love UUU My Princess Selsa Avliani❤️️').split('')
+    const text = 'I Love UUU My Princess Selsa Avliani ❤️️';
+    const titles = text.split('');
     const titleElement = document.getElementById('title');
     let index = 0;
 
@@ -11,12 +12,11 @@ onload = () => {
       if (index < titles.length) {
         titleElement.innerHTML += titles[index];
         index++;
-        setTimeout(appendTitle, 300); // 1000ms delay
+        // Delay 300ms per huruf agar tidak terlalu lambat
+        setTimeout(appendTitle, 300); 
       }
     }
 
     appendTitle();
-
-    clearTimeout(c);
   }, 1000);
 };
