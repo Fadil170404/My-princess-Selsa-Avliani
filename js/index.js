@@ -22,25 +22,26 @@ textElements.forEach((element) => {
 });
 
 
-// --- BAGIAN 2: Logika Musik (Tambahan) ---
+// --- GANTI BAGIAN LOGIKA MUSIK DENGAN INI ---
 const openBtn = document.getElementById('openBtn');
 const audio = document.getElementById('myAudio');
 
 if (openBtn && audio) {
   openBtn.addEventListener('click', function(e) {
-    // Putar lagu romantic.mp3
-    audio.play().then(() => {
-        console.log("Musik jalan!");
-    }).catch(err => {
-        console.log("Autoplay diblokir, tapi lagu akan tetap dicoba putar.");
-    });
-
-    // Beri jeda 0.5 detik agar telinga user sempat dengar intro lagunya
-    // baru kemudian pindah ke halaman flower.html
-    e.preventDefault(); 
+    e.preventDefault(); // Berhenti dulu, jangan pindah halaman
+    
     const target = this.getAttribute('href');
-    setTimeout(() => {
+
+    // Cek apakah file musik bisa dimuat
+    audio.play().then(() => {
+      console.log("Berhasil putar!");
+      setTimeout(() => {
+        window.location.href = target;
+      }, 700); // Jeda biar lagu kedengeran dulu
+    }).catch(err => {
+      console.error("Gagal putar: ", err);
+      // Kalau gagal, kita tetap pindah halaman biar gak macet
       window.location.href = target;
-    }, 500);
+    });
   });
 }
