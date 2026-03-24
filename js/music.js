@@ -4,18 +4,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (openBtn && audio) {
     openBtn.addEventListener('click', function(e) {
-      // 1. Putar lagu
-      audio.play().catch(err => {
-        console.log("Musik tertunda: ", err);
-      });
-
-      // 2. Tahan sebentar biar lagu masuk (0.5 detik) baru pindah halaman
-      e.preventDefault();
+      e.preventDefault(); // Tahan dulu pindah halamannya
       const targetUrl = this.getAttribute('href');
+
+      console.log("Mencoba memutar musik...");
       
-      setTimeout(() => {
+      audio.play().then(() => {
+        console.log("Musik berhasil diputar!");
+        // Tunggu sebentar agar suara terdengar baru pindah halaman
+        setTimeout(() => {
+          window.location.href = targetUrl;
+        }, 800); 
+      }).catch(err => {
+        console.error("Gagal putar musik. Error:", err);
+        // Jika gagal tetap pindah halaman supaya tidak macet
         window.location.href = targetUrl;
-      }, 500); 
+      });
     });
+  } else {
+    console.error("Elemen audio atau tombol tidak ditemukan!");
   }
 });
