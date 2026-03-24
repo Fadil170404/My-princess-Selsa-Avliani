@@ -1,22 +1,12 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const openBtn = document.getElementById('openBtn');
-  const audio = document.getElementById('music'); // ID diganti jadi 'music'
+document.addEventListener('DOMContentLoaded', function() {
+  const btn = document.getElementById('openBtn');
+  const music = document.getElementById('music');
 
-  if (openBtn && audio) {
-    openBtn.addEventListener('click', function(e) {
-      e.preventDefault(); 
-      const targetUrl = this.getAttribute('href');
-
-      // Paksa muat ulang audio sebelum diputar
-      audio.load();
-      
-      audio.play().then(() => {
-        setTimeout(() => {
-          window.location.href = targetUrl;
-        }, 800); 
-      }).catch(err => {
-        console.error("Gagal putar:", err);
-        window.location.href = targetUrl;
+  if (btn && music) {
+    btn.addEventListener('click', function() {
+      // Perintah memutar musik
+      music.play().catch(function(error) {
+        console.log("Autoplay ditahan browser:", error);
       });
     });
   }
